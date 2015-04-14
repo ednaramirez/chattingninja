@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="row">
+		<div class="col-md-10">
+			<h1>Chat</h1>
+		</div>
+	</div>
+	<div class="row">
+		<p>My peer id is: {{peerid}}</p>
+		<input type="text" ng-model="idConnect">
+		<input type="button" ng-click="connectToPeer()" value="Connect">
+	</div>
+	<div class="row">
+		<input type="text" ng-model="message">
+		<input type="button" ng-click="sendMessage()" value="Send">
+	</div>
+	<div class="row" id="chatbox">
+		<p ng-repeat="message in messages"><b>{{message.name}}: </b>{{message.content}}</p>
+	</div>
+	</div>
+</div>

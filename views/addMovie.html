@@ -1,0 +1,31 @@
+<div class="row">
+	<h1>Add movie</h1>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<form ng-submit="submit()">
+			  	<div class="form-group">
+			    	<label for="name">Name</label>
+			    	<input type="text" class="form-control" id="name" placeholder="Name of the movie" ng-model="movie.name">
+			  	</div>
+			  	<div class="form-group">
+			    	<label for="year">Release date</label>
+			    	<input type="text" class="form-control" id="year" placeholder="YYYY-MM-DD" ng-model="movie.year">
+			  	</div>
+			  	<div class="form-group">
+			    	<label for="director">Director</label>
+			    	<input type="text" class="form-control" id="director" placeholder="Full name" ng-model="movie.director">
+			  	</div>
+			  	<div class="form-group">
+			    	<label for="genre">Genre</label>
+			    	<input type="text" class="form-control" id="genre" placeholder="Action, horror, suspense, etc..." ng-model="movie.genre">
+			  	</div>	
+			  	<div class="form-group">
+			    	<label for="rating">Genre</label>
+			    	<input type="text" class="form-control" id="rating" placeholder="From 0 to 10" ng-model="movie.rating">
+			  	</div>	
+			  	<input type="submit" class="btn btn-primary" value="Save"/>
+			  	<a class="btn btn-default" href="#/" role="button">Cancel</a>
+			</form>
+		</div>
+	</div>
+</div>
