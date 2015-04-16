@@ -10,7 +10,7 @@ var util = require('util');
 var base64image = require('base64-image');
 var app = express();
 
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 80);
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '')));
