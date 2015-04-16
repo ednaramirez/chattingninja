@@ -1,3 +1,12 @@
+<style>
+img {
+	max-height: 100px;
+}
+#c {
+	visibility: hidden;
+	display: none;
+}
+</style>
 <div class="row">
 	<div class="row">
 		<div class="col-md-10">
@@ -5,16 +14,44 @@
 		</div>
 	</div>
 	<div class="row">
-		<p>My peer id is: {{peerid}}</p>
-		<input type="text" ng-model="idConnect">
-		<input type="button" ng-click="connectToPeer()" value="Connect">
+		<div class="col-md-6">
+			<p>My peer id is: {{peerid}}</p>
+			<input type="text" ng-model="idConnect">
+			<input type="button" ng-click="connectToPeer()" class="btn" value="Connect">
+			<hr>
+			<h3>Send message</h3>
+			<input type="text" ng-model="message">
+			<input type="button" class="btn" ng-click="sendMessage()" value="Send">
+		
+		</div>
+		<div class="col-md-6">
+			<div class="row">
+				<h3>Send pictures</h3>
+				<input style="display:inline-block;" type="file" class="btn" ng-file-select="onFileSelect($files)" accept="image/*">
+				<input type="button" class="btn" value="Send image" ng-click="sendImage()" ng-if="picture"></input>
+				<video id="v" width="400" height="400" ng-if="camera"></video>
+		      	<div id="controls">
+		        	<input type="button" class="btn" ng-click="startCam()" value="Take a picture from webcam" ng-if="!camera">
+		        	<input type="button" class="btn" ng-click="takePicture()" value="Take picture" ng-if="camera">
+		        	<input type="button" class="btn" ng-click="sendPicture()" value="Send picture" ng-if="camera && fullImage">
+		        	<input type="button" class="btn" ng-click="closeCam()" value="Close" ng-if="camera">
+		      	</div>
+		      	<canvas id="c"></canvas>
+			    <img id="preview" src="{{fullImage}}" ng-if="fullImage && camera">
+			</div>
+			<div class="row">
+				<h3>Record audio</h3>
+				<audio id="audio" autoplay controls></audio>
+				<br>
+				<input type="button" class="btn" value="Record" ng-click="startRecording()">
+				<input type="button" class="btn" value="Stop" ng-click="stopRecording()">
+				<input type="button" class="btn" value="Send" ng-click="sendAudio()">
+			</div>
+		</div>
 	</div>
-	<div class="row">
-		<input type="text" ng-model="message">
-		<input type="button" ng-click="sendMessage()" value="Send">
-	</div>
+
 	<div class="row" id="chatbox">
-		<p ng-repeat="message in messages"><b>{{message.name}}: </b>{{message.content}}</p>
+		<p ng-repeat="message in messages"><b>{{message.name}}: </b><img src="{{message.content}}" ng-if="message.type=='image'"><audio src="{{message.content}}" ng-if="message.type=='audio'" controls></audio><span ng-if="message.type=='text'">{{message.content}}</span></p>
 	</div>
 	</div>
 </div>
