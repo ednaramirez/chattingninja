@@ -1,0 +1,48 @@
+<div id="container">
+	
+	<div class="chat-container" id="chat-container">
+		<div class="conversation-container" id="conversation-container">
+			<button class="btn" ng-show="!peerFound && !archived" ng-click="findPeer()">Find partner</button>
+			<label ng-show = "peerFound && !archived" class="checkbox-inline pull-right"><input type="checkbox" value="y" ng-model="toSave"> Save conversation</label>
+			<div ng-repeat="message in messages"><b>{{message.name}}: </b><img src="{{message.content}}" ng-if="message.type=='image'"><audio src="{{message.content}}" ng-if="message.type=='audio'" controls></audio><span ng-if="message.type=='text'">{{message.content}}</span></div>
+		
+		</div>
+		<div class="input-container">
+			<textarea ng-model="message" class="input-textarea" style="height:20px;"></textarea>
+			<div class="icon-container">
+				<span  data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-camera input-icon" ng-click="setModal('camera')"></span>
+				<input type="file" class="btn" ng-file-select="onFileSelect($files)" id="fileSelect" accept="image/*">
+				<span class="glyphicon glyphicon-paperclip"></span>
+				<span data-toggle="modal" data-target="#myModal" class="glyphicon glyphicon-volume-up" ng-click="setModal('audio')"></span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{modalTitle}}</h4>
+      </div>
+      <div class="modal-body">
+      	<div ng-if="modal=='camera'">
+				<video id="v" width="400" height="400"></video>
+		      	<div id="controls">
+		        	<input type="button" class="btn" ng-click="takePicture()" value="Take picture">
+		        	<input type="button" class="btn" ng-click="sendPicture()" value="Send picture" ng-if="fullImage">
+		      	</div>
+		      	<canvas id="c"></canvas>
+			    <img id="preview" src="{{fullImage}}" ng-if="fullImage && camera">
+      	</div>
+      	<div ng-if="modal=='audio'">
+      		<audio id="audio" autoplay controls></audio>
+			<br>
+			<input type="button" class="btn" value="Record" ng-click="startRecording()">
+			<input type="button" class="btn" value="Stop" ng-click="stopRecording()">
+			<input type="button" class="btn" value="Send" ng-click="sendAudio()">
+      	</div>
+      </div>
+    </div>
+  </div>
+</div>

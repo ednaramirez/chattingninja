@@ -1,0 +1,88 @@
+<style type="text/css">
+label{
+	display: block;
+}
+.row-required-info {
+	margin-bottom: 28px;
+}
+</style>
+<div class="row">
+  	<h1>Create an account</h1>
+  	<form method="post" ng-submit="signup()" name="signupForm" class="form-inline">
+  		<div class="row">
+	  		<div class="col-sm-2" style="padding:10px;">
+	  			<img src="http://placehold.it/120&text=Upload+picture">
+	  		</div>
+	  		<div class="col-sm-10">
+	  			<div class="row-fluid row-form" ng-if="currentUser">
+	  				<div class="form-group col-sm-4">
+		  				<label for="oldPassword">Type in your current password</label>
+			      		<input class="form-control" type="password" id="oldPassword" name="oldPassword" ng-model="user.oldPassword" required="{{required}}" autofocus>
+			      	</div>
+	  			</div>
+		      	<div class="row-fluid row-form row-required-info">
+			      	<div class="form-group col-sm-4" ng-class="{ 'has-success' : signupForm.email.$valid && signupForm.email.$dirty, 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }">
+			      		<label for="email">Email</label>
+			      		<input class="form-control" type="email" id="email" name="email" ng-model="user.email" required ="{{required}}" autofocus>
+			      		<div class="help-block text-danger" ng-if="signupForm.email.$dirty && required" ng-messages="signupForm.email.$error">
+			      			<div ng-message="required">Your email address is required.</div>
+			      			<div ng-message="email">Your email address is invalid.</div>
+			    		</div>
+			  		</div>
+
+			  		<div class="form-group col-sm-4" ng-class="{ 'has-success' : signupForm.password.$valid && signupForm.password.$dirty, 'has-error' : signupForm.password.$invalid && signupForm.password.$dirty }">
+			  			<label for="password">Password</label>
+						<input class="form-control" type="password" name="password" id="password" ng-model="user.password" required="{{required}}">
+						<div class="help-block text-danger" ng-if="signupForm.password.$dirty && required" ng-messages="signupForm.password.$error">
+							<div ng-message="required">Password is required.</div>
+						</div>
+					</div>
+
+					<div class="form-group col-sm-4" ng-class="{ 'has-success' : signupForm.confirmPassword.$valid && signupForm.confirmPassword.$dirty, 'has-error' : signupForm.confirmPassword.$invalid && signupForm.confirmPassword.$dirty }">
+						<label for="confirmPassword">Confirm</label>
+						<input class="form-control" type="password" name="confirmPassword" id="confirmPassword" ng-model="user.confirmPassword" repeat-password="password" required ="{{required}}">
+						<div class="help-block text-danger my-special-animation" ng-if="signupForm.confirmPassword.$dirty && required" ng-messages="signupForm.confirmPassword.$error">
+							<div ng-message="required">You must confirm password.</div>
+							<div ng-message="repeat">Passwords do not match.</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid row-form">
+					<div class="form-group col-sm-4">
+					    <label for="name">Name</label>
+					    <input type="text" class="form-control" id="name" ng-model="user.name">
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="country">Country</label>
+					    <select class="form-control" id="country" ng-model="user.country">
+					    	<option ng-repeat="c in countries" ng-selected="c.name == user.country">{{c.name}}</option>
+					    </select>
+					</div>
+					<div class="form-group col-sm-4">
+						<label for="birthdate">Birthdate</label>
+					    <input type="date" class="form-control" id="birthdate" ng-model="user.birthdate">
+					</div>
+				</div>
+				<div class="row-fluid" style="padding: 10px 0 0 15px;">
+					<label class="checkbox-inline">
+					  	<input type="checkbox" id="friends" ng-model="user.friends" value="true" ng-change="toggleValue(user.friends)"> Looking for friends
+					</label>
+					<label class="checkbox-inline">
+					  	<input type="checkbox" id="love" ng-model="user.love" value="true" ng-change="toggleValue(this)"> Looking for love
+					</label>
+					<label class="checkbox-inline">
+					  	<input type="checkbox" id="anonymous" ng-model="user.anonymous" value="true" ng-change="toggleValue(this)"> Remain anonymous?
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="padding-left:10px; padding-right:10px">
+			<h4>Interests</h4>
+			<tags-input ng-model="user.interests" placeholder="Add your interests separated by commas"></tags-input>
+		</div>
+		<div style="padding:10px; text-align:center;">
+			<button type="submit" ng-disabled="signupForm.$invalid" ng-hide = "currentUser" class="btn btn-lg btn-primary">Create Account</button>
+			<input type="button" ng-disabled="!user.oldPassword" ng-hide = "!currentUser" class="btn btn-lg btn-primary" ng-click="saveChanges()" value="Save changes">
+		</div>
+	</form>
+</div>

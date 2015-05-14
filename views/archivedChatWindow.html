@@ -1,0 +1,18 @@
+<div id="container">
+	<div class="col-xs-2">
+		<ul class="nav nav-tabs tabs-left">
+	      <li ng-repeat="conversation in conversations"><a href="#conversation{{conversation.id}}" data-toggle="tab">{{conversation.conversee.name}}</a></li>
+	    </ul>
+	</div>
+	<div class="col-xs-10">
+		<div class="chat-container" id="chat-container">
+			<div class="conversation-container" id="conversation-container">
+				<div class="tab-content">
+			      	<div ng-repeat="conversation in conversations" class="tab-pane" id="conversation{{conversation.id}}">
+						<div ng-repeat="message in conversation.messages"><b>{{message.sender}}: </b><img src="{{message.content}}" ng-if="message.type=='image'"><audio src="{{message.content}}" ng-if="message.type=='audio'" controls></audio><span ng-if="message.type=='text'">{{message.content}}</span></div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+</div>

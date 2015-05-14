@@ -1,7 +1,8 @@
 angular.module('ChatApp')
-.controller('HomeController', ['$rootScope', '$scope', '$location', '$window', '$upload', '$http', function($rootScope, $scope, $location, $window, $upload, $http) {
- 	var peer = new Peer({key: '3dlnx25329zlg14i'});
- 	console.log($rootScope.peers);
+.controller('HomeController', ['$rootScope', '$scope', '$location', '$window', '$upload', '$http', 'Conversation', 'Message', function($rootScope, $scope, $location, $window, $upload, $http, Conversation, Message) {
+ 	var peer = $rootScope.peer;
+  console.log($rootScope.peer);
+  console.log($rootScope.currentUser);
  	$scope.messages=[];
   $scope.camera = false;
   var localStream;
@@ -17,15 +18,13 @@ angular.module('ChatApp')
 	  // after the decimal.
 	  return '_' + Math.random().toString(36).substr(2, 9);
 	};
- 	$scope.peerid="";
- 	peer.on('open', function(id) {
+ 	$scope.peerid=$rootScope.peer.id;
+ 	/*peer.on('open', function(id) {
  		$scope.$apply(function(){
  			$scope.peerid=id;
  		});
 	  console.log('My peer ID is: ' + id);
-	  $rootScope.peers.push(peer);
-	  console.log($rootScope.peers);
-	});
+	});*/
 	peer.on('connection', connect);
 	function connect(c){
 		conn = c;
