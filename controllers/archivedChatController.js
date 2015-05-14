@@ -11,6 +11,7 @@ angular.module('ChatApp')
   			var messages=[];
   			var conversation = data[i];
   				User.get({id:conversation.participantB}, function(user){
+  				var index =1;
   				conversee=user;	
   				for (var j = conversation.messages.length - 1; j >= 0; j--) {
 					Message.get({id: conversation.messages[j]}, function(msg){
@@ -27,10 +28,10 @@ angular.module('ChatApp')
 					})
 				};
 
-				$scope.conversations.push({conversee: conversee, messages, id:(i+2)});
-				console.log($scope.conversations);
-  			});	
-			
+				$scope.conversations.push({conversee: conversee, messages, id:index});
+				index++;
+  			});
+			console.log($scope.conversations);
   		};
   		
   	});
